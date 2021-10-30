@@ -74,15 +74,15 @@ const String AM = 'AM';
 
 class PersianDate {
 
-  int _year;
-  int _month;
-  int _day;
-  int _weekday;
-  int _hour;
-  int _minute;
-  int _second;
-  int _millisecond;
-  int _microsecond;
+  int? _year;
+  int? _month;
+  int? _day;
+  int? _weekday;
+  int? _hour;
+  int? _minute;
+  int? _second;
+  int? _millisecond;
+  int? _microsecond;
 
   static const List<String> _DefualtVal = [yyyy,'-',mm,'-',dd,'  ',HH,':',nn,':',s,' ',am];
 
@@ -107,37 +107,37 @@ class PersianDate {
       if (format == yyyy) {
         sb.write(_digits(this.year, 4));
       } else if (format == yy) {
-        sb.write(_digits(this.year % 100, 2));
+        sb.write(_digits(this.year! % 100, 2));
       } else if (format == mm) {
         sb.write(_digits(this.month, 2));
       } else if (format == m) {
         sb.write(this.month);
       } else if (format == MM) {
-        sb.write(monthLong[this.month - 1]);
+        sb.write(monthLong[this.month! - 1]);
       } else if (format == M) {
-        sb.write(monthShort[this.month - 1]);
+        sb.write(monthShort[this.month! - 1]);
       } else if (format == dd) {
         sb.write(_digits(this.day, 2));
       } else if (format == d) {
         sb.write(this.day);
       } else if (format == w) {
-        sb.write((this.day + 7) ~/ 7);
+        sb.write((this.day! + 7) ~/ 7);
       } else if (format == DD) {
-        sb.write(dayLong[this.weekday - 1]);
+        sb.write(dayLong[this.weekday! - 1]);
       } else if (format == D) {
-        sb.write(dayShort[this.weekday - 1]);
+        sb.write(dayShort[this.weekday! - 1]);
       } else if (format == HH) {
         sb.write(_digits(this.hour, 2));
       } else if (format == H) {
         sb.write(this.hour);
       } else if (format == hh) {
-        sb.write(_digits(this.hour % 12, 2));
+        sb.write(_digits(this.hour! % 12, 2));
       } else if (format == h) {
-        sb.write(this.hour % 12);
+        sb.write(this.hour! % 12);
       } else if (format == AM) {
-        sb.write(this.hour < 12 ? 'قبل از ظهر' : 'بعد از ظهر');
+        sb.write(this.hour! < 12 ? 'قبل از ظهر' : 'بعد از ظهر');
       }else if (format == am) {
-        sb.write(this.hour < 12 ? 'ق.ظ' : 'ب.ظ');
+        sb.write(this.hour! < 12 ? 'ق.ظ' : 'ب.ظ');
       } else if (format == nn) {
         sb.write(_digits(this.minute, 2));
       } else if (format == n) {
@@ -160,7 +160,7 @@ class PersianDate {
     }
     return sb.toString();
   }
-  String _digits(int value, int length) {
+  String _digits(int? value, int length) {
     String ret = '$value';
     if (ret.length < length) {
       ret = '0' * (length - ret.length) + ret;
@@ -218,7 +218,7 @@ class PersianDate {
   ];
 
 
- gregorian_to_jalali(int y,int m,int d,{String separator}){
+ gregorian_to_jalali(int y,int m,int d,{String? separator}){
     var sumMonthDay = [0,31,59,90,120,151,181,212,243,273,304,334];
     var jY=0;
     if(y > 1600){
@@ -253,7 +253,7 @@ class PersianDate {
   }
 
 
-  jalali_to_gregorian(int y,int m,int d,{String separator}){
+  jalali_to_gregorian(int y,int m,int d,{String? separator}){
     int gY;
     if(y > 979){
       gY=1600;
@@ -288,7 +288,7 @@ class PersianDate {
 
 
 
-  parse(String formattedString,{String separator}) {
+  parse(String formattedString,{String? separator}) {
      var parse = DateTime.parse(formattedString);
      if(separator==null) {
        List parseList = gregorian_to_jalali(parse.year, parse.month, parse.day);
@@ -302,58 +302,58 @@ class PersianDate {
     }
 
 
-  String get weekdayname => dayLong[weekday - 1];
+  String get weekdayname => dayLong[weekday! - 1];
 
-  int get year => _year;
-  set year(int value) {
+  int? get year => _year;
+  set year(int? value) {
     _year = value;
   }
 
-  int get month => _month;
+  int? get month => _month;
 
-  set month(int value) {
+  set month(int? value) {
     _month = value;
   }
 
-  int get day => _day;
+  int? get day => _day;
 
-  set day(int value) {
+  set day(int? value) {
     _day = value;
   }
 
-  int get weekday => _weekday;
+  int? get weekday => _weekday;
 
-  set weekday(int value) {
+  set weekday(int? value) {
     _weekday = value;
   }
 
-  int get hour => _hour;
+  int? get hour => _hour;
 
-  set hour(int value) {
+  set hour(int? value) {
     _hour = value;
   }
 
-  int get minute => _minute;
+  int? get minute => _minute;
 
-  set minute(int value) {
+  set minute(int? value) {
     _minute = value;
   }
 
-  int get second => _second;
+  int? get second => _second;
 
-  set second(int value) {
+  set second(int? value) {
     _second = value;
   }
 
-  int get microsecond => _microsecond;
+  int? get microsecond => _microsecond;
 
-  set microsecond(int value) {
+  set microsecond(int? value) {
     _microsecond = value;
   }
 
-  int get millisecond => _millisecond;
+  int? get millisecond => _millisecond;
 
-  set millisecond(int value) {
+  set millisecond(int? value) {
     _millisecond = value;
   }
 
